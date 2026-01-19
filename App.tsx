@@ -103,7 +103,7 @@ const App: React.FC = () => {
          <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                 {/* Logo Visibility Correction: Updated to new file provided, increased size for clarity */}
-                <img src="65552309-844c-4a30-9b37-f0334812f861.png" alt="Groow Logo" className="h-14 w-auto object-contain" />
+                <img src="/logo-groow.png" alt="Groow Logo" className="h-14 w-auto object-contain" />
             </div>
             <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
                <span className="hover:text-white cursor-pointer transition-colors">Home</span>
@@ -115,7 +115,7 @@ const App: React.FC = () => {
                 onClick={scrollToCalculator}
                 className="px-6 py-2.5 rounded-full bg-electric-pulse hover:bg-cobalto-futuro transition-all text-sm font-medium shadow-lg shadow-electric-pulse/20"
             >
-                Log In / Sign Up
+                Calcola il tuo risparmio
             </button>
          </div>
       </nav>
@@ -215,7 +215,7 @@ const App: React.FC = () => {
                 <div className="grid md:grid-cols-4 gap-16 mb-20">
                     <div className="col-span-2">
                         {/* Footer Logo: Updated with new file and clear sizing */}
-                        <img src="65552309-844c-4a30-9b37-f0334812f861.png" alt="Groow Logo" className="h-12 w-auto mb-8 object-contain" />
+                        <img src="/logo-groow.png" alt="Groow Logo" className="h-12 w-auto mb-8 object-contain" />
                         <p className="text-gray-500 mt-8 text-lg font-light leading-relaxed max-w-md">
                             Automatizziamo il lavoro quotidiano delle PMI italiane con Agenti AI intelligenti e supervisionati.
                         </p>
@@ -238,7 +238,7 @@ const App: React.FC = () => {
                     </div>
                 </div>
                 <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p className="text-gray-600 text-sm font-light">© 2024 Groow.ai by Webidoo. All rights reserved.</p>
+                    <p className="text-gray-600 text-sm font-light">© 2026 Groow.ai by Webidoo. All rights reserved.</p>
                     <div className="flex gap-8 text-gray-600 text-sm font-light">
                         <span className="hover:text-white cursor-pointer transition-colors">Privacy Policy</span>
                         <span className="hover:text-white cursor-pointer transition-colors">Termini d'uso</span>
