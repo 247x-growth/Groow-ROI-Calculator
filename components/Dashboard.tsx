@@ -2,7 +2,7 @@
 import React, { useMemo, useEffect, useRef } from 'react';
 import { CalculatorState } from '../types';
 import { calculateROI } from '../utils/calculations';
-import { 
+import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
   PieChart, Pie, AreaChart, Area, CartesianGrid
 } from 'recharts';
@@ -47,7 +47,7 @@ const Dashboard: React.FC<Props> = ({ state, onReset }) => {
 
   return (
     <div className="space-y-8 animate-fade-in pb-20 font-sans">
-      
+
       {/* Hero Header */}
       <div className="text-center py-8 relative">
         <h2 className="text-xs font-bold text-accent tracking-widest uppercase mb-2">Risultato per {state.lead.companyName || 'la tua azienda'}</h2>
@@ -55,47 +55,47 @@ const Dashboard: React.FC<Props> = ({ state, onReset }) => {
           {formatCurrency(results.totalAnnualSavings)}
         </h1>
         <p className="text-xl font-normal text-gray-400">Risparmio annuale stimato</p>
-              </div>
+      </div>
 
       {/* Primary Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-bg-card border border-white/10 p-5 rounded-xl flex flex-col gap-4 hover:border-primary/50 transition-colors group">
           <div className="flex justify-between items-start">
-             <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">Ore Risparmiate</span>
-             <Icons.Clock className="text-primary group-hover:scale-110 transition-transform" size={20} />
+            <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">Ore Risparmiate</span>
+            <Icons.Clock className="text-primary group-hover:scale-110 transition-transform" size={20} />
           </div>
           <div className="mt-auto">
-             <span className="text-3xl font-bold text-white block">{Math.round(results.totalAnnualHours).toLocaleString('it-IT')} h</span>
-             <span className="text-xs font-light text-gray-500">su base annua</span>
+            <span className="text-3xl font-bold text-white block">{Math.round(results.totalAnnualHours).toLocaleString('it-IT')} h</span>
+            <span className="text-xs font-light text-gray-500">su base annua</span>
           </div>
         </div>
 
         <div className="bg-bg-card border border-white/10 p-5 rounded-xl flex flex-col gap-4 hover:border-accent/50 transition-colors group">
           <div className="flex justify-between items-start">
-             <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">FTE Equivalenti</span>
-             <Icons.Users className="text-accent group-hover:scale-110 transition-transform" size={20} />
+            <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">FTE Equivalenti</span>
+            <Icons.Users className="text-accent group-hover:scale-110 transition-transform" size={20} />
           </div>
-           <div className="mt-auto">
-             <span className="text-3xl font-bold text-white block">{results.fteEquivalent.toFixed(1)}</span>
-             <span className="text-xs font-light text-gray-500">Collaboratori full-time</span>
-           </div>
+          <div className="mt-auto">
+            <span className="text-3xl font-bold text-white block">{results.fteEquivalent.toFixed(1)}</span>
+            <span className="text-xs font-light text-gray-500">Collaboratori full-time</span>
+          </div>
         </div>
 
         <div className="bg-bg-card border border-white/10 p-5 rounded-xl flex flex-col gap-4 hover:border-primary/50 transition-colors group">
           <div className="flex justify-between items-start">
-             <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">Break-Even Point</span>
-             <Icons.TrendingUp className="text-primary group-hover:scale-110 transition-transform" size={20} />
+            <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">Break-Even Point</span>
+            <Icons.TrendingUp className="text-primary group-hover:scale-110 transition-transform" size={20} />
           </div>
           <div className="mt-auto">
-             <span className="text-3xl font-bold text-white block">{results.roiMonths > 0 ? `${results.roiMonths} mesi` : '< 1 mese'}</span>
-             <span className="text-xs font-light text-gray-500">Recupero investimento</span>
+            <span className="text-3xl font-bold text-white block">{results.roiMonths > 0 ? `${results.roiMonths} mesi` : '< 1 mese'}</span>
+            <span className="text-xs font-light text-gray-500">Recupero investimento</span>
           </div>
         </div>
 
         <div className="bg-bg-card border border-white/10 p-5 rounded-xl flex flex-col gap-4 hover:border-accent/50 transition-colors group">
           <div className="flex justify-between items-start">
-             <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">ROI (3 Anni)</span>
-             <Icons.Rocket className="text-accent group-hover:scale-110 transition-transform" size={20} />
+            <span className="text-gray-400 text-xs font-bold uppercase tracking-wider">ROI (3 Anni)</span>
+            <Icons.Rocket className="text-accent group-hover:scale-110 transition-transform" size={20} />
           </div>
           <div className="mt-auto">
             <span className="text-3xl font-bold text-accent block">+{Math.round(results.roi3YearPct)}%</span>
@@ -106,7 +106,7 @@ const Dashboard: React.FC<Props> = ({ state, onReset }) => {
 
       {/* Charts Section */}
       <div className="grid lg:grid-cols-2 gap-8">
-        
+
         {/* Department Savings Pie */}
         <div className="glass-panel rounded-2xl p-6 h-[400px]">
           <h3 className="text-lg font-bold text-white mb-6">Risparmio per Reparto</h3>
@@ -125,9 +125,9 @@ const Dashboard: React.FC<Props> = ({ state, onReset }) => {
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
-              <Tooltip 
+              <Tooltip
                 formatter={(value: number) => formatCurrency(value)}
-                contentStyle={{ backgroundColor: '#101214', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontFamily: 'Poppins' }}
+                contentStyle={{ backgroundColor: '#ffffff', border: 'none', borderRadius: '8px', color: '#101214', fontFamily: 'Poppins', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
               />
             </PieChart>
           </ResponsiveContainer>
@@ -135,24 +135,24 @@ const Dashboard: React.FC<Props> = ({ state, onReset }) => {
 
         {/* Timeline Area */}
         <div className="glass-panel rounded-2xl p-6 h-[400px]">
-           <h3 className="text-lg font-bold text-white mb-6">Proiezione Cumulativa (36 mesi)</h3>
-           <ResponsiveContainer width="100%" height="85%">
+          <h3 className="text-lg font-bold text-white mb-6">Proiezione Cumulativa (36 mesi)</h3>
+          <ResponsiveContainer width="100%" height="85%">
             <AreaChart data={results.timelineData}>
               <defs>
                 <linearGradient id="colorSavings" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#32D9F6" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#32D9F6" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#32D9F6" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#32D9F6" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="colorCost" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#3348F6" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#3348F6" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#3348F6" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#3348F6" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#333" />
               <XAxis dataKey="month" stroke="#666" style={{ fontSize: '12px', fontFamily: 'Poppins' }} />
               <YAxis hide />
-              <Tooltip 
-                contentStyle={{ backgroundColor: '#101214', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontFamily: 'Poppins' }}
+              <Tooltip
+                contentStyle={{ backgroundColor: '#ffffff', border: 'none', borderRadius: '8px', color: '#101214', fontFamily: 'Poppins', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
                 formatter={(value: number) => formatCurrency(value)}
               />
               <Area type="monotone" dataKey="cumulativeSavings" name="Risparmio Cumulativo" stroke="#32D9F6" fillOpacity={1} fill="url(#colorSavings)" />
@@ -162,31 +162,31 @@ const Dashboard: React.FC<Props> = ({ state, onReset }) => {
         </div>
       </div>
 
-       {/* Top Processes Table/Bar */}
-       <div className="glass-panel rounded-2xl p-6">
-          <h3 className="text-lg font-bold text-white mb-6">Top 5 Processi per Impatto</h3>
-          <div className="space-y-4">
-             {results.topProcesses.slice(0, 5).map((proc, idx) => (
-                <div key={idx} className="relative pt-1">
-                   <div className="flex mb-2 items-center justify-between">
-                     <div>
-                       <span className="text-xs font-bold inline-block text-accent uppercase">
-                         {proc.name}
-                       </span>
-                     </div>
-                     <div className="text-right">
-                       <span className="text-xs font-bold inline-block text-white">
-                         {formatCurrency(proc.savings)}
-                       </span>
-                     </div>
-                   </div>
-                   <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-bg-dark border border-white/5">
-                     <div style={{ width: `${(proc.savings / results.topProcesses[0].savings) * 100}%` }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gradient-to-r from-primary to-accent transition-all duration-1000"></div>
-                   </div>
+      {/* Top Processes Table/Bar */}
+      <div className="glass-panel rounded-2xl p-6">
+        <h3 className="text-lg font-bold text-white mb-6">Top 5 Processi per Impatto</h3>
+        <div className="space-y-4">
+          {results.topProcesses.slice(0, 5).map((proc, idx) => (
+            <div key={idx} className="relative pt-1">
+              <div className="flex mb-2 items-center justify-between">
+                <div>
+                  <span className="text-xs font-bold inline-block text-accent uppercase">
+                    {proc.name}
+                  </span>
                 </div>
-             ))}
-          </div>
-       </div>
+                <div className="text-right">
+                  <span className="text-xs font-bold inline-block text-white">
+                    {formatCurrency(proc.savings)}
+                  </span>
+                </div>
+              </div>
+              <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-bg-dark border border-white/5">
+                <div style={{ width: `${(proc.savings / results.topProcesses[0].savings) * 100}%` }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gradient-to-r from-primary to-accent transition-all duration-1000"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* CTA Prenota Demo */}
       <div className="glass-panel rounded-2xl p-6 text-center">

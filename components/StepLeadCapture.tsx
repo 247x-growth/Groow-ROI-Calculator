@@ -55,7 +55,7 @@ const StepLeadCapture: React.FC<Props> = ({ data, onChange, onSubmit, calculator
         </div>
         <h2 className="text-3xl font-bold font-sans text-white mb-2">Analisi Completata</h2>
         <p className="text-gray-400">
-          Abbiamo calcolato il tuo potenziale di automazione. <br/>
+          Abbiamo calcolato il tuo potenziale di automazione. <br />
           Inserisci i tuoi dati per sbloccare il report dettagliato.
         </p>
       </div>
@@ -63,7 +63,7 @@ const StepLeadCapture: React.FC<Props> = ({ data, onChange, onSubmit, calculator
       <div className="bg-bg-card border border-white/10 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
         {/* Decorative blur */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] -z-10" />
-        
+
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Split Name/Surname */}
           <div className="grid md:grid-cols-2 gap-5">
@@ -81,7 +81,7 @@ const StepLeadCapture: React.FC<Props> = ({ data, onChange, onSubmit, calculator
               </div>
             </div>
 
-             <div className="space-y-2">
+            <div className="space-y-2">
               <label className="text-sm font-medium text-gray-300">Cognome *</label>
               <div className="relative">
                 <Icons.User className="absolute left-3 top-3 text-gray-500" size={18} />
@@ -97,33 +97,38 @@ const StepLeadCapture: React.FC<Props> = ({ data, onChange, onSubmit, calculator
           </div>
 
           <div className="grid md:grid-cols-2 gap-5">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Ruolo Aziendale</label>
-                <div className="relative">
-                  <Icons.Briefcase className="absolute left-3 top-3 text-gray-500" size={18} />
-                  <input
-                    type="text"
-                    value={data.role}
-                    onChange={(e) => updateField('role', e.target.value)}
-                    className="w-full bg-bg-dark border border-white/10 rounded-lg py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-primary transition-colors"
-                    placeholder="CEO, CFO..."
-                  />
-                </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-300">Ruolo Aziendale</label>
+              <div className="relative">
+                <Icons.Briefcase className="absolute left-3 top-3 text-gray-500" size={18} />
+                <input
+                  type="text"
+                  value={data.role}
+                  onChange={(e) => updateField('role', e.target.value)}
+                  className="w-full bg-bg-dark border border-white/10 rounded-lg py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-primary transition-colors"
+                  placeholder="CEO, CFO..."
+                />
               </div>
+            </div>
 
-               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Telefono *</label>
-                <div className="relative">
-                  <Icons.Phone className="absolute left-3 top-3 text-gray-500" size={18} />
-                  <input
-                    type="tel"
-                    value={data.phone}
-                    onChange={(e) => updateField('phone', e.target.value)}
-                    className={`w-full bg-bg-dark border rounded-lg py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-primary transition-colors ${errors.phone ? 'border-red-500' : 'border-white/10'}`}
-                    placeholder="+39 333 1234567"
-                  />
-                </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-300">Telefono *</label>
+              <div className="relative">
+                <Icons.Phone className="absolute left-3 top-3 text-gray-500" size={18} />
+                <input
+                  type="tel"
+                  value={data.phone}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (/^[\d\s+\-\(\)]*$/.test(val)) {
+                      updateField('phone', val);
+                    }
+                  }}
+                  className={`w-full bg-bg-dark border rounded-lg py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-primary transition-colors ${errors.phone ? 'border-red-500' : 'border-white/10'}`}
+                  placeholder="+39 333 1234567"
+                />
               </div>
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -174,7 +179,7 @@ const StepLeadCapture: React.FC<Props> = ({ data, onChange, onSubmit, calculator
               )}
             </button>
             <p className="text-center text-xs text-gray-500 mt-4">
-              I tuoi dati sono al sicuro. Riceverai anche una copia del report via email.
+              I tuoi dati sono al sicuro e saranno trattati a norma di legge
             </p>
           </div>
         </form>

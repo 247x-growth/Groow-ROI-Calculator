@@ -59,6 +59,15 @@ export interface CalculatorState {
   departments: Record<string, DepartmentState>;
   economics: EconomicParameters;
   lead: LeadInfo;
+  utm: UtmParams;
+}
+
+export interface UtmParams {
+  source: string;
+  medium: string;
+  campaign: string;
+  term: string;
+  content: string;
 }
 
 export interface CalculationResult {

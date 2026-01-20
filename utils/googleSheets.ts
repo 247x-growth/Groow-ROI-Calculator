@@ -1,18 +1,18 @@
-import { CalculatorState, CalculationResult } from '../types';
+import { CalculatorState, CalculationResult, UtmParams } from '../types';
 import { DEPARTMENTS } from '../constants';
 
 // INSERISCI QUI L'URL DEL TUO GOOGLE APPS SCRIPT WEB APP
-const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxuU0hZcTdzZHGWr7AhGglzKO6gXJGXH85w_z6IgwO9M1PfiM4P6jaFlJBQAP_Zi__V/exec';
 
 // Funzione per estrarre UTM parameters dalla URL
-export const getUtmParams = (): Record<string, string> => {
+export const getUtmParams = (): UtmParams => {
   const params = new URLSearchParams(window.location.search);
   return {
-    utmSource: params.get('utm_source') || '',
-    utmMedium: params.get('utm_medium') || '',
-    utmCampaign: params.get('utm_campaign') || '',
-    utmTerm: params.get('utm_term') || '',
-    utmContent: params.get('utm_content') || '',
+    source: params.get('utm_source') || '',
+    medium: params.get('utm_medium') || '',
+    campaign: params.get('utm_campaign') || '',
+    term: params.get('utm_term') || '',
+    content: params.get('utm_content') || '',
   };
 };
 
@@ -57,18 +57,19 @@ export const sendToGoogleSheet = async (
   state: CalculatorState,
   results: CalculationResult
 ): Promise<boolean> => {
-  const utmParams = getUtmParams();
+  // Use UTMs from state (captured on load)
+  const { utm } = state;
 
   const data = {
     // Timestamp
     timestamp: new Date().toISOString(),
 
     // UTM Parameters
-    utmSource: utmParams.utmSource,
-    utmMedium: utmParams.utmMedium,
-    utmCampaign: utmParams.utmCampaign,
-    utmTerm: utmParams.utmTerm,
-    utmContent: utmParams.utmContent,
+    utmSource: utm.source,
+    utmMedium: utm.medium,
+    utmCampaign: utm.campaign,
+    utmTerm: utm.term,
+    utmContent: utm.content,
 
     // Lead Info
     firstName: state.lead.firstName,
@@ -102,6 +103,9 @@ export const sendToGoogleSheet = async (
     // Top Processes (as string)
     topProcesses: results.topProcesses.map(p => `${p.name}: €${Math.round(p.savings)}`).join(' | '),
   };
+
+  // Placeholder check removed
+
 
   try {
     const response = await fetch(GOOGLE_SCRIPT_URL, {
