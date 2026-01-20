@@ -1,5 +1,5 @@
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useRef } from 'react';
 import { CalculatorState } from '../types';
 import { calculateROI } from '../utils/calculations';
 import { 
@@ -19,6 +19,29 @@ const formatCurrency = (val: number) => {
 
 const COLORS = ['#3348F6', '#32D9F6', '#1E17BA', '#B796FF', '#ECEEFF', '#DEE5FF'];
 
+const HubSpotMeeting: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className="meetings-iframe-container"
+      data-src="https://meetings.hubspot.com/groow-it/demo?embed=true"
+    />
+  );
+};
+
 const Dashboard: React.FC<Props> = ({ state, onReset }) => {
   const results = useMemo(() => calculateROI(state), [state]);
 
@@ -32,8 +55,7 @@ const Dashboard: React.FC<Props> = ({ state, onReset }) => {
           {formatCurrency(results.totalAnnualSavings)}
         </h1>
         <p className="text-xl font-normal text-gray-400">Risparmio annuale stimato</p>
-        <p className="text-sm font-light text-gray-500 mt-2">Un report completo è stato inviato a <span className="text-white font-medium">{state.lead.email}</span></p>
-      </div>
+              </div>
 
       {/* Primary Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -166,14 +188,26 @@ const Dashboard: React.FC<Props> = ({ state, onReset }) => {
           </div>
        </div>
 
-      <div className="flex justify-center pt-8">
-        <button 
-            onClick={onReset}
-            className="px-8 py-3 rounded-full border border-white/20 text-white font-medium hover:bg-white/10 transition-colors"
-        >
-            Ricalcola Nuova Simulazione
-        </button>
+      {/* CTA Prenota Demo */}
+      <div className="glass-panel rounded-2xl p-6 text-center">
+        <div className="max-w-2xl mx-auto mb-4">
+          <div className="inline-flex items-center justify-center p-3 bg-primary/20 text-primary rounded-full mb-3">
+            <Icons.Calendar size={28} />
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-2">
+            Inizia a Risparmiare Subito
+          </h3>
+          <p className="text-gray-400 text-sm">
+            Prenota una demo gratuita con il nostro team per scoprire come integrare
+            l'AI nei tuoi processi aziendali e iniziare a risparmiare
+            <span className="text-accent font-semibold"> {formatCurrency(results.totalAnnualSavings)}</span> all'anno.
+          </p>
+        </div>
+        <div className="rounded-xl overflow-hidden">
+          <HubSpotMeeting />
+        </div>
       </div>
+
 
     </div>
   );

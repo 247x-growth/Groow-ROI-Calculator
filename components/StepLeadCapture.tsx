@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import { LeadInfo } from '../types';
+import { LeadInfo, CalculatorState } from '../types';
 import * as Icons from 'lucide-react';
+import { sendToGoogleSheet } from '../utils/googleSheets';
+import { calculateROI } from '../utils/calculations';
 
 interface Props {
   data: LeadInfo;
   onChange: (data: LeadInfo) => void;
   onSubmit: () => void;
+  calculatorState: CalculatorState;
 }
 
-const StepLeadCapture: React.FC<Props> = ({ data, onChange, onSubmit }) => {
+const StepLeadCapture: React.FC<Props> = ({ data, onChange, onSubmit, calculatorState }) => {
   const [errors, setErrors] = useState<Record<string, boolean>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const updateField = (field: keyof LeadInfo, value: string) => {
     onChange({ ...data, [field]: value });
@@ -18,7 +22,7 @@ const StepLeadCapture: React.FC<Props> = ({ data, onChange, onSubmit }) => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: Record<string, boolean> = {};
     if (!data.firstName) newErrors.firstName = true;
@@ -26,11 +30,20 @@ const StepLeadCapture: React.FC<Props> = ({ data, onChange, onSubmit }) => {
     if (!data.email || !data.email.includes('@')) newErrors.email = true;
     if (!data.companyName) newErrors.companyName = true;
     if (!data.phone) newErrors.phone = true;
-    
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
+
+    setIsSubmitting(true);
+
+    // Calcola i risultati ROI e invia a Google Sheet
+    const stateWithLead = { ...calculatorState, lead: data };
+    const results = calculateROI(stateWithLead);
+    await sendToGoogleSheet(stateWithLead, results);
+
+    setIsSubmitting(false);
     onSubmit();
   };
 
@@ -144,11 +157,21 @@ const StepLeadCapture: React.FC<Props> = ({ data, onChange, onSubmit }) => {
           <div className="pt-4">
             <button
               type="submit"
-              className="w-full group bg-gradient-to-r from-primary to-accent hover:shadow-[0_0_25px_rgba(99,102,241,0.6)] text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 text-lg"
+              disabled={isSubmitting}
+              className={`w-full group bg-gradient-to-r from-primary to-accent hover:shadow-[0_0_25px_rgba(99,102,241,0.6)] text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 text-lg ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
             >
-              <Icons.Unlock size={20} />
-              Sblocca il Report ROI
-              <Icons.ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              {isSubmitting ? (
+                <>
+                  <Icons.Loader2 size={20} className="animate-spin" />
+                  Invio in corso...
+                </>
+              ) : (
+                <>
+                  <Icons.Unlock size={20} />
+                  Sblocca il Report ROI
+                  <Icons.ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
             </button>
             <p className="text-center text-xs text-gray-500 mt-4">
               I tuoi dati sono al sicuro. Riceverai anche una copia del report via email.

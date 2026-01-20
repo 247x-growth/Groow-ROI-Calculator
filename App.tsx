@@ -58,10 +58,10 @@ const INITIAL_STATE: CalculatorState = {
 const App: React.FC = () => {
   const [state, setState] = useState<CalculatorState>(INITIAL_STATE);
 
-  const MAX_STEPS = 6;
+  const MAX_STEPS = 5;
 
   const nextStep = () => {
-    setState(prev => ({ ...prev, step: Math.min(MAX_STEPS, prev.step + 1) }));
+    setState(prev => ({ ...prev, step: Math.min(MAX_STEPS + 1, prev.step + 1) }));
     const calcEl = document.getElementById('calculator-widget');
     if (calcEl) {
         calcEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -105,13 +105,7 @@ const App: React.FC = () => {
                 {/* Logo Visibility Correction: Updated to new file provided, increased size for clarity */}
                 <img src="/logo-groow.png" alt="Groow Logo" className="h-14 w-auto object-contain" />
             </div>
-            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
-               <span className="hover:text-white cursor-pointer transition-colors">Home</span>
-               <span className="hover:text-white cursor-pointer transition-colors">Piattaforma</span>
-               <span className="hover:text-white cursor-pointer transition-colors">Agenti AI</span>
-               <span className="hover:text-white cursor-pointer transition-colors">Prezzi</span>
-            </div>
-            <button 
+                        <button 
                 onClick={scrollToCalculator}
                 className="px-6 py-2.5 rounded-full bg-electric-pulse hover:bg-cobalto-futuro transition-all text-sm font-medium shadow-lg shadow-electric-pulse/20"
             >
@@ -133,7 +127,8 @@ const App: React.FC = () => {
                 </div>
 
                 <div id="calculator-widget" className="groow-card overflow-hidden flex flex-col md:flex-row min-h-[700px]">
-                    {/* Progress Column */}
+                    {/* Progress Column - nascosta nella Dashboard */}
+                    {state.step <= MAX_STEPS && (
                     <div className="bg-white/[0.02] p-8 md:w-72 border-b md:border-b-0 md:border-r border-white/5 flex flex-col">
                         <div className="mb-12">
                             <span className="text-[10px] font-medium text-electric-pulse uppercase tracking-[0.2em]">Step Attuale</span>
@@ -148,8 +143,7 @@ const App: React.FC = () => {
                                 { num: 2, label: 'Reparti' },
                                 { num: 3, label: 'Processi' },
                                 { num: 4, label: 'Parametri' },
-                                { num: 5, label: 'Lead' },
-                                { num: 6, label: 'Analisi' }
+                                { num: 5, label: 'Lead' }
                             ].map((s) => (
                                 <div key={s.num} className="flex items-center gap-5">
                                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium transition-all ${
@@ -164,6 +158,7 @@ const App: React.FC = () => {
                             ))}
                         </div>
                     </div>
+                    )}
 
                     {/* Form Column */}
                     <div className="flex-1 p-8 md:p-12 flex flex-col">
@@ -172,7 +167,7 @@ const App: React.FC = () => {
                             {state.step === 2 && <Step2Departments data={state.departments} onChange={updateDepts} />}
                             {state.step === 3 && <Step3Processes data={state.departments} onChange={updateDepts} />}
                             {state.step === 4 && <Step3Economics data={state.economics} onChange={updateEcon} />}
-                            {state.step === 5 && <StepLeadCapture data={state.lead} onChange={updateLead} onSubmit={nextStep} />}
+                            {state.step === 5 && <StepLeadCapture data={state.lead} onChange={updateLead} onSubmit={nextStep} calculatorState={state} />}
                             {state.step === 6 && <Dashboard state={state} onReset={reset} />}
                         </div>
 
@@ -196,7 +191,7 @@ const App: React.FC = () => {
                                             : 'bg-white/5 text-gray-600 cursor-not-allowed'
                                         }`}
                                     >
-                                        {state.step === 4 ? 'Vedi Risultati' : 'Continua'}
+                                        Continua
                                     </button>
                                 )}
                             </div>
@@ -212,36 +207,18 @@ const App: React.FC = () => {
         {/* Footer */}
         <footer className="bg-midnight-silicon border-t border-white/5 py-24">
             <div className="max-w-7xl mx-auto px-6">
-                <div className="grid md:grid-cols-4 gap-16 mb-20">
-                    <div className="col-span-2">
-                        {/* Footer Logo: Updated with new file and clear sizing */}
-                        <img src="/logo-groow.png" alt="Groow Logo" className="h-12 w-auto mb-8 object-contain" />
-                        <p className="text-gray-500 mt-8 text-lg font-light leading-relaxed max-w-md">
-                            Automatizziamo il lavoro quotidiano delle PMI italiane con Agenti AI intelligenti e supervisionati.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 className="text-white font-medium mb-8">Piattaforma</h4>
-                        <ul className="space-y-4 text-gray-500 font-light">
-                            <li className="hover:text-electric-pulse cursor-pointer transition-colors">Agenti AI</li>
-                            <li className="hover:text-electric-pulse cursor-pointer transition-colors">Integrazioni</li>
-                            <li className="hover:text-electric-pulse cursor-pointer transition-colors">Soluzioni</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 className="text-white font-medium mb-8">Supporto</h4>
-                        <ul className="space-y-4 text-gray-500 font-light">
-                            <li className="hover:text-electric-pulse cursor-pointer transition-colors">Documentazione</li>
-                            <li className="hover:text-electric-pulse cursor-pointer transition-colors">Assistenza</li>
-                            <li className="hover:text-electric-pulse cursor-pointer transition-colors">Contatti</li>
-                        </ul>
-                    </div>
+                <div className="mb-20">
+                    <img src="/logo-groow.png" alt="Groow Logo" className="h-12 w-auto mb-8 object-contain" />
+                    <p className="text-gray-500 mt-8 text-lg font-light leading-relaxed max-w-md">
+                        Automatizziamo il lavoro quotidiano delle PMI italiane con Agenti AI intelligenti e supervisionati.
+                    </p>
                 </div>
                 <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
                     <p className="text-gray-600 text-sm font-light">© 2026 Groow.ai by Webidoo. All rights reserved.</p>
                     <div className="flex gap-8 text-gray-600 text-sm font-light">
-                        <span className="hover:text-white cursor-pointer transition-colors">Privacy Policy</span>
-                        <span className="hover:text-white cursor-pointer transition-colors">Termini d'uso</span>
+                        <a href="https://groow.ai/en/privacy-policy/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="https://groow.ai/en/terms-and-conditions/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Termini e Condizioni</a>
+                        <a href="https://groow.ai/en/cookie-policy/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Cookie Policy</a>
                     </div>
                 </div>
             </div>
