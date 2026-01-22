@@ -48,55 +48,55 @@ const StepLeadCapture: React.FC<Props> = ({ data, onChange, onSubmit, calculator
   };
 
   return (
-    <div className="space-y-8 animate-fade-in max-w-2xl mx-auto">
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center p-3 bg-success/20 text-success rounded-full mb-4">
-          <Icons.CheckCircle2 size={32} />
+    <div className="space-y-6 animate-fade-in max-w-2xl mx-auto">
+      <div className="text-center mb-4 md:mb-8">
+        <div className="inline-flex items-center justify-center p-2 md:p-3 bg-success/20 text-success rounded-full mb-3 md:mb-4">
+          <Icons.CheckCircle2 size={28} className="md:w-8 md:h-8" />
         </div>
-        <h2 className="text-3xl font-bold font-sans text-white mb-2">Analisi Completata</h2>
-        <p className="text-gray-400">
+        <h2 className="text-2xl md:text-3xl font-bold font-sans text-white mb-2">Analisi Completata</h2>
+        <p className="text-gray-400 text-sm md:text-base">
           Abbiamo calcolato il tuo potenziale di automazione. <br />
           Inserisci i tuoi dati per sbloccare il report dettagliato.
         </p>
       </div>
 
-      <div className="bg-bg-card border border-white/10 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+      <div className="bg-bg-card border border-white/10 rounded-2xl p-4 md:p-8 shadow-2xl relative overflow-hidden">
         {/* Decorative blur */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] -z-10" />
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
           {/* Split Name/Surname */}
-          <div className="grid md:grid-cols-2 gap-5">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-300">Nome *</label>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+            <div className="space-y-1.5 md:space-y-2">
+              <label className="text-xs md:text-sm font-medium text-gray-300">Nome *</label>
               <div className="relative">
-                <Icons.User className="absolute left-3 top-3 text-gray-500" size={18} />
+                <Icons.User className="absolute left-3 top-2.5 md:top-3 text-gray-500" size={16} />
                 <input
                   type="text"
                   value={data.firstName}
                   onChange={(e) => updateField('firstName', e.target.value)}
-                  className={`w-full bg-bg-dark border rounded-lg py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-primary transition-colors ${errors.firstName ? 'border-red-500' : 'border-white/10'}`}
+                  className={`w-full bg-bg-dark border rounded-lg py-2 md:py-2.5 pl-9 md:pl-10 pr-4 text-white text-sm md:text-base focus:outline-none focus:border-primary transition-colors ${errors.firstName ? 'border-red-500' : 'border-white/10'}`}
                   placeholder="Mario"
                 />
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-300">Cognome *</label>
+            <div className="space-y-1.5 md:space-y-2">
+              <label className="text-xs md:text-sm font-medium text-gray-300">Cognome *</label>
               <div className="relative">
-                <Icons.User className="absolute left-3 top-3 text-gray-500" size={18} />
+                <Icons.User className="absolute left-3 top-2.5 md:top-3 text-gray-500" size={16} />
                 <input
                   type="text"
                   value={data.lastName}
                   onChange={(e) => updateField('lastName', e.target.value)}
-                  className={`w-full bg-bg-dark border rounded-lg py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-primary transition-colors ${errors.lastName ? 'border-red-500' : 'border-white/10'}`}
+                  className={`w-full bg-bg-dark border rounded-lg py-2 md:py-2.5 pl-9 md:pl-10 pr-4 text-white text-sm md:text-base focus:outline-none focus:border-primary transition-colors ${errors.lastName ? 'border-red-500' : 'border-white/10'}`}
                   placeholder="Rossi"
                 />
               </div>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-300">Ruolo Aziendale</label>
               <div className="relative">

@@ -38,14 +38,14 @@ const INITIAL_STATE: CalculatorState = {
   step: 1,
   company: {
     industry: '',
-    size: 'Micro',
+    size: '',
     revenue: '',
-    digitizationLevel: 2,
+    digitizationLevel: 0,
   },
   departments: INITIAL_DEPARTMENTS,
   economics: {
-    averageHourlyCost: 35,
-    inefficiencyFactor: 1.3,
+    averageHourlyCost: 0,
+    inefficiencyFactor: 0,
   },
   lead: {
     firstName: '',
@@ -81,7 +81,7 @@ const App: React.FC = () => {
   const reset = () => setState(INITIAL_STATE);
 
   const canProceed = () => {
-    if (state.step === 1) return state.company.industry && state.company.revenue;
+    if (state.step === 1) return state.company.industry && state.company.size && state.company.revenue && state.company.digitizationLevel > 0;
     if (state.step === 2) return Object.values(state.departments).some((d: DepartmentState) => d.isSelected);
     if (state.step === 3) {
       const activeDepts = Object.values(state.departments).filter((d: DepartmentState) => d.isSelected);
@@ -89,6 +89,7 @@ const App: React.FC = () => {
         Object.values(d.processes).some((p: SelectedProcess) => p.isSelected) || d.customProcess.isSelected
       );
     }
+    if (state.step === 4) return state.economics.averageHourlyCost > 0 && state.economics.inefficiencyFactor > 0;
     return true;
   };
 
@@ -103,16 +104,17 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-midnight-silicon text-white font-sans selection:bg-electric-pulse selection:text-white">
       {/* Navigation - High contrast solid background for logo legibility */}
       <nav className="fixed w-full top-0 z-50 bg-[#0a0c0e] border-b border-white/5 shadow-2xl">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 h-14 md:h-20 flex items-center justify-between">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            {/* Logo Visibility Correction: Updated to new file provided, increased size for clarity */}
-            <img src="/logo-groow.png" alt="Groow Logo" className="h-14 w-auto object-contain" />
+            {/* Logo - smaller on mobile */}
+            <img src="/logo-groow.png" alt="Groow Logo" className="h-8 md:h-14 w-auto object-contain" />
           </div>
           <button
             onClick={scrollToCalculator}
-            className="px-6 py-2.5 rounded-full bg-electric-pulse hover:bg-cobalto-futuro transition-all text-sm font-medium shadow-lg shadow-electric-pulse/20"
+            className="px-3 md:px-6 py-2 md:py-2.5 rounded-full bg-electric-pulse hover:bg-cobalto-futuro transition-all text-xs md:text-sm font-medium shadow-lg shadow-electric-pulse/20"
           >
-            Calcola il tuo risparmio
+            <span className="hidden sm:inline">Calcola il tuo risparmio</span>
+            <span className="sm:hidden">Calcola ROI</span>
           </button>
         </div>
       </nav>
@@ -122,21 +124,21 @@ const App: React.FC = () => {
         <LandingHowItWorks />
 
         {/* Calculator Section */}
-        <section id="calculator-section" className="py-32 px-6 bg-midnight-silicon relative">
+        <section id="calculator-section" className="py-16 md:py-32 px-4 md:px-6 bg-midnight-silicon relative">
           <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-medium text-white mb-4">Calcola il ROI del tuo Agente AI</h2>
-              <p className="text-xl text-gray-400 font-light">Compila il configuratore per ricevere un'analisi personalizzata.</p>
+            <div className="text-center mb-8 md:mb-16">
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-medium text-white mb-2 md:mb-4">Calcola il ROI del tuo Agente AI</h2>
+              <p className="text-base md:text-xl text-gray-400 font-light">Compila il configuratore per ricevere un'analisi personalizzata.</p>
             </div>
 
-            <div id="calculator-widget" className="groow-card overflow-hidden flex flex-col md:flex-row min-h-[700px]">
+            <div id="calculator-widget" className="groow-card overflow-hidden flex flex-col md:flex-row min-h-[600px] md:min-h-[700px]">
               {/* Progress Column - nascosta nella Dashboard */}
               {state.step <= MAX_STEPS && (
-                <div className="bg-white/[0.02] p-8 md:w-72 border-b md:border-b-0 md:border-r border-white/5 flex flex-col">
-                  <div className="mb-12">
+                <div className="bg-white/[0.02] p-4 md:p-8 md:w-72 border-b md:border-b-0 md:border-r border-white/5 flex flex-col">
+                  <div className="mb-6 md:mb-12 flex md:block items-center gap-3">
                     <span className="text-[10px] font-medium text-electric-pulse uppercase tracking-[0.2em]">Step Attuale</span>
-                    <div className="text-5xl font-medium text-white mt-2">
-                      0{state.step}<span className="text-gray-700 text-2xl">/0{MAX_STEPS}</span>
+                    <div className="text-3xl md:text-5xl font-medium text-white md:mt-2">
+                      0{state.step}<span className="text-gray-700 text-lg md:text-2xl">/0{MAX_STEPS}</span>
                     </div>
                   </div>
 
@@ -163,7 +165,7 @@ const App: React.FC = () => {
               )}
 
               {/* Form Column */}
-              <div className="flex-1 p-8 md:p-12 flex flex-col">
+              <div className="flex-1 p-4 md:p-8 lg:p-12 flex flex-col">
                 <div className="flex-1">
                   {state.step === 1 && <Step1Profile data={state.company} onChange={updateCompany} />}
                   {state.step === 2 && <Step2Departments data={state.departments} onChange={updateDepts} />}
@@ -188,8 +190,8 @@ const App: React.FC = () => {
                         onClick={nextStep}
                         disabled={!canProceed()}
                         className={`px-10 py-3.5 rounded-full font-medium transition-all ${canProceed()
-                            ? 'bg-electric-pulse text-white shadow-lg shadow-electric-pulse/30'
-                            : 'bg-white/5 text-gray-600 cursor-not-allowed'
+                          ? 'bg-electric-pulse text-white shadow-lg shadow-electric-pulse/30'
+                          : 'bg-white/5 text-gray-600 cursor-not-allowed'
                           }`}
                       >
                         Continua

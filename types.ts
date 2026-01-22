@@ -34,7 +34,7 @@ export interface DepartmentState {
 
 export interface CompanyProfile {
   industry: string;
-  size: 'Micro' | 'Piccola' | 'Media';
+  size: 'Micro' | 'Piccola' | 'Media' | '';
   revenue: string;
   digitizationLevel: number;
 }
