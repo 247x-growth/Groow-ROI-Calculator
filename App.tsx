@@ -65,13 +65,23 @@ const App: React.FC = () => {
 
   const nextStep = () => {
     setState(prev => ({ ...prev, step: Math.min(MAX_STEPS + 1, prev.step + 1) }));
-    const calcEl = document.getElementById('calculator-widget');
-    if (calcEl) {
-      calcEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    setTimeout(() => {
+      const calcEl = document.getElementById('calculator-widget');
+      if (calcEl) {
+        calcEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 50);
   };
 
-  const prevStep = () => setState(prev => ({ ...prev, step: Math.max(1, prev.step - 1) }));
+  const prevStep = () => {
+    setState(prev => ({ ...prev, step: Math.max(1, prev.step - 1) }));
+    setTimeout(() => {
+      const calcEl = document.getElementById('calculator-widget');
+      if (calcEl) {
+        calcEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 50);
+  };
 
   const updateCompany = (data: any) => setState(prev => ({ ...prev, company: data }));
   const updateDepts = (data: any) => setState(prev => ({ ...prev, departments: data }));

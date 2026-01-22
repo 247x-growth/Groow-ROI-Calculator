@@ -1,80 +1,105 @@
-
 <!DOCTYPE html>
 <html lang="it" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Groow.ai ROI Calculator</title>
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['"Poppins"', 'sans-serif'],
-            },
-            colors: {
-              'midnight-silicon': '#101214',
-              'electric-pulse': '#3348F6',
-              'cobalto-futuro': '#1E17BA',
-              'aqua-byte': '#32D9F6',
-              'support-purple': '#B796FF',
-              primary: '#3348F6',
-              accent: '#32D9F6',
-              'bg-dark': '#101214',
-              'bg-card': '#1a1d21',
-            }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Groow.ai ROI Calculator</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Poppins"', 'sans-serif'],
+          },
+          colors: {
+            'midnight-silicon': '#101214',
+            'electric-pulse': '#3348F6',
+            'cobalto-futuro': '#1E17BA',
+            'aqua-byte': '#32D9F6',
+            'support-purple': '#B796FF',
+            primary: '#3348F6',
+            accent: '#32D9F6',
+            'bg-dark': '#101214',
+            'bg-card': '#1a1d21',
           }
         }
       }
-    </script>
-    <style>
-      body {
-        background-color: #101214;
-        color: #ffffff;
-        font-family: 'Poppins', sans-serif;
-        margin: 0;
-      }
-      /* Typography Rule: Headings must be Medium (500), No Bold (700) */
-      h1, h2, h3, h4, h5, h6 {
-        font-weight: 500 !important;
-      }
-      .groow-hero-gradient {
-        background: radial-gradient(circle at 50% 0%, #1E17BA 0%, #101214 70%);
-      }
-      .groow-card {
-        background: rgba(26, 29, 33, 0.6);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 24px;
-      }
-      .btn-primary {
-        background-color: #3348F6;
-        color: white;
-        font-weight: 500; /* Adjusted to 500 for consistency if used in header-like contexts */
-      }
-      .text-gradient {
-        background: linear-gradient(90deg, #32D9F6 0%, #3348F6 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      ::-webkit-scrollbar { width: 6px; }
-      ::-webkit-scrollbar-track { background: #101214; }
-      ::-webkit-scrollbar-thumb { background: #3348F6; border-radius: 10px; }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #101214;
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+    }
 
-      /* HubSpot embed dark mode */
-      .meetings-iframe-container iframe {
-        filter: invert(1) hue-rotate(180deg);
-      }
-    </style>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+    /* Typography Rule: Headings must be Medium (500), No Bold (700) */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-weight: 500 !important;
+    }
+
+    .groow-hero-gradient {
+      background: radial-gradient(circle at 50% 0%, #1E17BA 0%, #101214 70%);
+    }
+
+    .groow-card {
+      background: rgba(26, 29, 33, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+    }
+
+    .btn-primary {
+      background-color: #3348F6;
+      color: white;
+      font-weight: 500;
+      /* Adjusted to 500 for consistency if used in header-like contexts */
+    }
+
+    .text-gradient {
+      background: linear-gradient(90deg, #32D9F6 0%, #3348F6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #101214;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3348F6;
+      border-radius: 10px;
+    }
+
+    /* HubSpot embed dark mode */
+    .meetings-iframe-container iframe {
+      filter: invert(1) hue-rotate(180deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
 </html>

@@ -189,21 +189,21 @@ const Dashboard: React.FC<Props> = ({ state, onReset }) => {
       </div>
 
       {/* CTA Prenota Demo */}
-      <div className="glass-panel rounded-2xl p-6 text-center">
+      <div className="glass-panel rounded-2xl p-4 md:p-6 text-center">
         <div className="max-w-2xl mx-auto mb-4">
-          <div className="inline-flex items-center justify-center p-3 bg-primary/20 text-primary rounded-full mb-3">
-            <Icons.Calendar size={28} />
+          <div className="inline-flex items-center justify-center p-2 md:p-3 bg-primary/20 text-primary rounded-full mb-2 md:mb-3">
+            <Icons.Calendar size={24} className="md:w-7 md:h-7" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
             Inizia a Risparmiare Subito
           </h3>
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 text-xs md:text-sm">
             Prenota una demo gratuita con il nostro team per scoprire come integrare
             l'AI nei tuoi processi aziendali e iniziare a risparmiare
             <span className="text-accent font-semibold"> {formatCurrency(results.totalAnnualSavings)}</span> all'anno.
           </p>
         </div>
-        <div className="rounded-xl overflow-hidden">
+        <div className="rounded-xl overflow-hidden -mx-2 md:mx-0">
           <HubSpotMeeting />
         </div>
       </div>
