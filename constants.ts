@@ -39,7 +39,7 @@ export const DEPARTMENTS: DepartmentDefinition[] = [
   {
     id: 'executive',
     name: 'Executive / Management',
-    icon: 'Crown',
+    icon: 'Briefcase',
     defaultStaffCount: 1,
     processes: [
       { id: 'exec_report', name: 'Reportistica direzionale', defaultHours: 6, automationFactor: 0.65 },

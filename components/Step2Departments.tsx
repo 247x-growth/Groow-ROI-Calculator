@@ -63,11 +63,12 @@ const Step2Departments: React.FC<Props> = ({ data, onChange }) => {
               <div className="w-full overflow-hidden">
                 <h3 className={`font-bold text-sm md:text-lg mb-0.5 md:mb-1 truncate ${isSelected ? 'text-white' : 'text-gray-300'}`}>{dept.name}</h3>
                 <p className="text-[9px] md:text-xs text-gray-500 line-clamp-2 leading-tight px-1">
-                  {dept.id === 'sales' && 'Contatti, preventivi, clienti'}
-                  {dept.id === 'customer_care' && 'Risposte, FAQ, supporto'}
+                  {dept.id === 'executive' && 'KPI, report, pianificazione'}
                   {dept.id === 'finance' && 'Fatture, pagamenti, report'}
-                  {dept.id === 'hr' && 'Inserimento, ferie, selezione'}
+                  {dept.id === 'sales' && 'Contatti, preventivi, clienti'}
+                  {dept.id === 'marketing_care' && 'Campagne, contenuti, supporto'}
                   {dept.id === 'ops' && 'Ordini, magazzino, logistica'}
+                  {dept.id === 'hr' && 'Inserimento, ferie, selezione'}
                   {dept.id === 'it' && 'Integrazioni, accessi, IT'}
                 </p>
               </div>
