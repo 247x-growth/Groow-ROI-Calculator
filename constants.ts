@@ -1,15 +1,20 @@
 import { DepartmentDefinition, ProcessDefinition } from './types';
 
 export const INDUSTRIES = [
-  { id: 'manufacturing', label: 'Manifatturiero', icon: 'Factory' },
-  { id: 'retail', label: 'Commercio', icon: 'ShoppingBag' },
-  { id: 'services', label: 'Servizi professionali', icon: 'Briefcase' },
-  { id: 'tech', label: 'Informatica', icon: 'Cpu' },
-  { id: 'food', label: 'Ristorazione', icon: 'Utensils' },
-  { id: 'healthcare', label: 'Sanità', icon: 'HeartPulse' },
-  { id: 'construction', label: 'Edilizia', icon: 'HardHat' },
-  { id: 'logistics', label: 'Logistica', icon: 'Truck' },
+  { id: 'manufacturing', label: 'Manifatturiero / Produzione', icon: 'Factory' },
+  { id: 'retail', label: 'Retail / E-commerce', icon: 'ShoppingBag' },
+  { id: 'services', label: 'Servizi Professionali', icon: 'Briefcase' },
+  { id: 'logistics', label: 'Logistica / Trasporti', icon: 'Truck' },
+  { id: 'healthcare', label: 'Healthcare', icon: 'HeartPulse' },
   { id: 'other', label: 'Altro', icon: 'MoreHorizontal' },
+];
+
+export const ROLES = [
+  'CEO / Founder/ Amministratore',
+  'Operations / Finance Manager',
+  'CTO / IT manager',
+  'HR/Talent Manager',
+  'Altro',
 ];
 
 export const REVENUE_RANGES = [

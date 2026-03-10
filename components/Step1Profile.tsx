@@ -42,7 +42,7 @@ const Step1Profile: React.FC<Props> = ({ data, onChange }) => {
       {/* Industry */}
       <div className="space-y-2">
         <label className="block text-sm font-medium text-gray-300">
-          Settore Industriale <span className="text-red-400">*</span>
+          In quale settore opera la tua azienda? <span className="text-red-400">*</span>
         </label>
         {!data.industry && (
           <p className="text-xs text-amber-400 flex items-center gap-1">
@@ -51,7 +51,6 @@ const Step1Profile: React.FC<Props> = ({ data, onChange }) => {
         )}
         <div className="grid grid-cols-3 gap-2 md:gap-3">
           {INDUSTRIES.map((ind) => {
-            // Safe fallback for icons
             const Icon = (Icons as any)[ind.icon] || Icons.HelpCircle;
             const isSelected = data.industry === ind.id;
             return (

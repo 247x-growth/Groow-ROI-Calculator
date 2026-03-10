@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LeadInfo, CalculatorState } from '../types';
 import * as Icons from 'lucide-react';
+import { ROLES } from '../constants';
 import { sendToGoogleSheet } from '../utils/googleSheets';
 import { calculateROI } from '../utils/calculations';
 
@@ -30,6 +31,7 @@ const StepLeadCapture: React.FC<Props> = ({ data, onChange, onSubmit, calculator
     if (!data.email || !data.email.includes('@')) newErrors.email = true;
     if (!data.companyName) newErrors.companyName = true;
     if (!data.phone) newErrors.phone = true;
+    if (!data.role) newErrors.role = true;
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -97,17 +99,23 @@ const StepLeadCapture: React.FC<Props> = ({ data, onChange, onSubmit, calculator
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-300">Ruolo Aziendale</label>
+            <div className="space-y-1.5 md:space-y-2">
+              <label className="text-xs md:text-sm font-medium text-gray-300">Qual è il tuo ruolo in azienda? <span className="text-red-400">*</span></label>
               <div className="relative">
-                <Icons.Briefcase className="absolute left-3 top-3 text-gray-500" size={18} />
-                <input
-                  type="text"
+                <Icons.Briefcase className="absolute left-3 top-2.5 md:top-3 text-gray-500" size={16} />
+                <select
                   value={data.role}
                   onChange={(e) => updateField('role', e.target.value)}
-                  className="w-full bg-bg-dark border border-white/10 rounded-lg py-2.5 pl-10 pr-4 text-white focus:outline-none focus:border-primary transition-colors"
-                  placeholder="CEO, CFO..."
-                />
+                  className={`w-full bg-bg-dark border rounded-lg py-2 md:py-2.5 pl-9 md:pl-10 pr-8 text-sm md:text-base appearance-none cursor-pointer focus:outline-none focus:border-primary transition-colors ${
+                    data.role ? 'text-white border-white/10' : 'text-gray-500 border-white/10'
+                  } ${errors.role ? 'border-red-500' : ''}`}
+                >
+                  <option value="">Seleziona</option>
+                  {ROLES.map((role) => (
+                    <option key={role} value={role}>{role}</option>
+                  ))}
+                </select>
+                <Icons.ChevronDown className="absolute right-3 top-2.5 md:top-3 text-gray-500 pointer-events-none" size={16} />
               </div>
             </div>
 
